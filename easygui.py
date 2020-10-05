@@ -2,8 +2,6 @@
 import os, io
 import re
 import openpyxl
-import nltk
-from nltk.tokenize import sent_tokenize
 from openpyxl import load_workbook
 from openpyxl import Workbook
 import time

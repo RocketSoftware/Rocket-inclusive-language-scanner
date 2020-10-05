@@ -7,9 +7,14 @@ Once you are done reviewing the report, correcting it wherever required, and ind
 Tip: To undo a replacement, you only need to switch the contents of the Original Phrase and Suggested Phrase columns in the report and run the Language Checker again using the updated report.
 
 Using Language Checker:
-The input terminology sheet must have two sheets, Sheet1 and Sheet2. If you rename the sheets, you need rename them in the script as well. Sheet1 is where you need to give your inputs. 
+The input terminology sheet must have two sheets, Sheet1 and Sheet2. If you rename the sheets, you need rename them in the script as well. Sheet1 is where you need to give your inputs.
 
-To find and replace the deprecated terms in the source files:
+Required Libraries:
+Install the following libraries using a package manager like pip.
+1. openpyxl
+2. PySimpleGUI
+
+ To find and replace the deprecated terms in the source files:
 1.	Double click the easygui.py file.
 2.	Enter the documentation folder path and the input terminology sheet path. The terminology sheet path should include full file name of the sheet, including the file extension:
 3.	Click Find. Language Checker saves its findings in Sheet2 of the input terminology sheet.

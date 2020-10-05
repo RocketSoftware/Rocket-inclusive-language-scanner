@@ -10,8 +10,6 @@ import PySimpleGUI as sg
 
 def find(repo_path, excel_path, msg):
     try:
-        #path='C:/GIT'
-        #path='C:/Users/phameed/Desktop/Automation/terminology/Test1/Git'
         x=1
         j=0
         z=2
@@ -154,7 +152,7 @@ layout = [  [sg.Text('Find/Replace Deprecated Words')],
             [sg.Text('Enter Path For Terminology Sheet: '), sg.InputText()],
             [sg.Button('Find'), sg.Button('Replace')]]
             
-window = sg.Window('Terminology Checker', layout)
+window = sg.Window('Rocket Inclusive Language Scanner', layout)
 
 
 while True:

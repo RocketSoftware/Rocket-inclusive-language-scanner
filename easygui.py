@@ -54,7 +54,7 @@ def find(repo_path, excel_path, msg):
         exec=end-start
         tt=round(exec, 3)
         exfile.save(excel_path)
-        msg=str(cnt) + " files are processed at" + str(tt) + " Seconds"
+        msg=str(cnt) + " files are processed at " + str(tt) + " Seconds"
         return(repo_path, excel_path, msg)
     except:
         msg="Not able to save to the terminology sheet. Please close the sheet and try again"
@@ -69,26 +69,23 @@ def replace(repo_path, excel_path, msg):
     sheet=exfile.get_sheet_by_name('Sheet1')
     newsheet=exfile.get_sheet_by_name('Sheet2')
     cnt=0
+    log_file_path=path+"/log.txt"
+
     for y in range(2,count+1):
         res=newsheet['F' + str(y)].value
         if res == 'yes':
-            #off_word=newsheet['B' + str(y)].value
-            #sugg_word=newsheet['D' + str(y)].value
             line_old=newsheet['D' + str(y)].value
             line_new=newsheet['E' + str(y)].value
-            #line=line_i.replace(off_word,sugg_word)
             file_ini=newsheet['A' + str(y)].value
-            file_init=file_ini.split('Git')[1]
-            file_f=file_init.replace("\\","/")
-            file_ff=path+file_f
+
             try:
-                with open (file_ff, "r", encoding = "ISO-8859-1") as f:
+                with open (file_ini, "r", encoding = "ISO-8859-1") as f:
                     #print(file_f)
                     content=f.read()
                     f.close()
                     if line_old in content:
                         try:
-                            with open (file_ff, "w", encoding = "ISO-8859-1") as fw:
+                            with open (file_ini, "w", encoding = "ISO-8859-1") as fw:
                                 content=content.replace(line_old,line_new)
                                 fw.write(content)
                                 fw.close()
@@ -97,8 +94,8 @@ def replace(repo_path, excel_path, msg):
                                 pre_line="Original Phrase:   " + line_old
                                 post_line="Modified Phrase:  " + line_new
                                 log_content3="==================================================="
-                                log_content=log_content1 + "\n" + log_content2 + "\n" + "File:  " + file_ff + "\n" + pre_line + "\n" + post_line + "\n" + log_content3
-                                log_file=open('C:/Users/phameed/Desktop/Automation/terminology/GUI_test/log.txt', 'a+')
+                                log_content=log_content1 + "\n" + log_content2 + "\n" + "File:  " + file_ini + "\n" + pre_line + "\n" + post_line + "\n" + log_content3
+                                log_file=open(log_file_path, 'a+')
                                 log_file.write(log_content)
                                 cnt=cnt+1
                         except Exception as error:
@@ -106,8 +103,8 @@ def replace(repo_path, excel_path, msg):
                                 log_content2="ROW" + str(y) + ":  " + "Failure"
                                 log_content12=str(error)
                                 log_content3="===================================================="
-                                log_content=log_content1 + "\n" + log_content2 + "\n" + file_ff + "\n" + log_content12 + "\n" + log_content3
-                                log_file=open('C:/Users/phameed/Desktop/Automation/terminology/GUI_test/log.txt', 'a+')
+                                log_content=log_content1 + "\n" + log_content2 + "\n" + file_ini + "\n" + log_content12 + "\n" + log_content3
+                                log_file=open(log_file_path, 'a+')
                                 log_file.write(log_content)
                                 continue
                     else:
@@ -115,8 +112,8 @@ def replace(repo_path, excel_path, msg):
                         log_content2="ROW" + str(y) + ":  " + "Failure"
                         log_content22="Could not find the original phrase in this document."
                         log_content3="===================================================="
-                        log_content=log_content1 + "\n" + log_content2 + "\n" + file_ff + "\n" + log_content22 + "\n" + log_content3
-                        log_file=open('C:/Users/phameed/Desktop/Automation/terminology/GUI_test/log.txt', 'a+')
+                        log_content=log_content1 + "\n" + log_content2 + "\n" + file_ini + "\n" + log_content22 + "\n" + log_content3
+                        log_file=open(log_file_path, 'a+')
                         log_file.write(log_content)
                         continue
             except Exception as e:
@@ -124,8 +121,8 @@ def replace(repo_path, excel_path, msg):
                 log_content2="ROW" + str(y) + ":  " + "Failure"
                 log_content11=str(e)
                 log_content3="===================================================="
-                log_content=log_content1 + "\n" + log_content2 + "\n" + file_ff + "\n" + log_content11 + "\n" + log_content3
-                log_file=open('C:/Users/phameed/Desktop/Automation/terminology/GUI_test/log.txt', 'a+')
+                log_content=log_content1 + "\n" + log_content2 + "\n" + file_ini + "\n" + log_content11 + "\n" + log_content3
+                log_file=open(log_file_path, 'a+')
                 log_file.write(log_content)
                 continue
                 
@@ -135,7 +132,7 @@ def replace(repo_path, excel_path, msg):
     log_content6= "Terminology sheet used:  " + excel_path
     log_content7="Modified repository path: " + path
     log_pre=log_content4 + "\n" + log_content5 + "\n" + log_content6 + "\n" + log_content7 + "\n" + "\n" + "Detailed Modification Report" + "\n"
-    with open('C:/Users/phameed/Desktop/Automation/terminology/GUI_test/log.txt', 'r+') as rp:
+    with open(log_file_path, 'r+') as rp:
         lines=rp.readlines()
         lines.insert(0, log_pre)
         rp.seek(0)
@@ -143,7 +140,7 @@ def replace(repo_path, excel_path, msg):
     end=time.time()
     exec=end-start
     tt=round(exec, 3)
-    msg=str(cnt) + " files were modified in: " + str(tt) + " seconds"     
+    msg=str(cnt) + " files were modified in: " + str(tt) + " seconds" + "  Check the log at " + str(log_file)     
     return(repo_path, excel_path, msg)
 
 sg.theme('DarkAmber')	
@@ -152,7 +149,7 @@ layout = [  [sg.Text('Find/Replace Deprecated Words')],
             [sg.Text('Enter Path For Terminology Sheet: '), sg.InputText()],
             [sg.Button('Find'), sg.Button('Replace')]]
             
-window = sg.Window('Rocket Inclusive Language Scanner', layout)
+window = sg.Window('Terminology Checker', layout)
 
 
 while True:

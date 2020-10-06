@@ -1,4 +1,4 @@
-# inclusive-language-scanner
+# Language Checker
 
 Language Checker uses a terminology sheet to collate the user inputs such as the search term and its suggested replacement. Language Checker uses the terminology sheet to parse the source XML files and generate a detailed report regarding its findings. The report captures the current context and the suggested context of the search terms. You can use the information contained in this report to make an informed decision on whether or not to replace the offensive occurrence of the term. You can update the report to indicate whether you wish to make the suggested replacement in the source file. You can also edit the replacement phrase in the report so that when the offensive term is replaced in the source file, it can be done so by considering the context of its occurrence as well. 
 Tip: When the report is generated, Language Checker only replaces the search term with the suggested replacement term in the report. If you notice any inaccuracies in the replacement phrase (for example use of articles around the replaced term), you can update the report to correct it.
